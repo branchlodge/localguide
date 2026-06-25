@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Branch — Local Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --coral:#C2603E;
+    --coral-deep:#A04A29;
+    --paper:#F6EFE2;
+    --paper-2:#FBF6EC;
+    --ink:#2C2722;
+    --ink-soft:#6B6258;
+    --line:#DAD0BE;
+    --display:"Fredoka", sans-serif;
+    --serif:"Newsreader", Georgia, serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:180px 180px;
+    opacity:.045;mix-blend-mode:multiply;
+  }
+  body > *{position:relative;z-index:1;}
+  .wrap{max-width:880px;margin:0 auto;padding:0 32px;}
+
+  /* ---- NAV ---- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(246,239,226,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-in{max-width:1080px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:center;gap:24px;}
+  .nav-logo{height:48px;width:auto;display:block;}
+  .nav-in > a{line-height:0;display:block;}
+  .nav-links{display:flex;gap:30px;list-style:none;flex-wrap:wrap;align-items:center;}
+  .nav-links a{
+    font-family:var(--display);font-weight:500;font-size:18px;
+    text-decoration:none;color:var(--ink-soft);letter-spacing:.01em;
+    transition:color .18s;
+  }
+  .nav-links a:hover{color:var(--coral-deep);}
+  .nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px;margin:-8px;line-height:0;color:var(--ink);}
+  .nav-toggle span{display:block;width:26px;height:2.5px;background:currentColor;border-radius:2px;transition:transform .25s,opacity .2s;}
+  .nav-toggle span + span{margin-top:6px;}
+  nav.open .nav-toggle span:nth-child(1){transform:translateY(8.5px) rotate(45deg);}
+  nav.open .nav-toggle span:nth-child(2){opacity:0;}
+  nav.open .nav-toggle span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg);}
+  @media(max-width:760px){
+    .nav-in{padding:14px 22px;justify-content:flex-end;}
+    .nav-logo{height:40px;}
+    .nav-toggle{display:block;}
+    .nav-links{
+      position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;align-items:stretch;gap:0;
+      background:var(--paper-2);border-bottom:1px solid var(--line);
+      box-shadow:0 18px 30px -22px rgba(40,30,20,.5);
+      max-height:0;overflow:hidden;transition:max-height .32s ease;
+    }
+    nav.open .nav-links{max-height:80vh;}
+    .nav-links li{border-top:1px solid var(--line);}
+    .nav-links li:first-child{border-top:0;}
+    .nav-links a{display:block;padding:16px 24px;font-size:18px;color:var(--ink);}
+    .nav-links a:active{background:var(--paper);}
+  }
+
+  /* ---- HERO ---- */
+  .hero{padding:90px 0 30px;text-align:center;}
+  .hero-title{font-family:var(--display);font-weight:600;font-size:clamp(58px,11vw,124px);line-height:1;letter-spacing:-.02em;color:var(--coral);white-space:nowrap;}
+  .hero-note{font-style:italic;font-size:22px;color:var(--ink);max-width:560px;margin:18px auto 0;}
+  .eyebrow{
+    font-family:var(--display);font-weight:600;font-size:13px;
+    letter-spacing:.42em;text-transform:uppercase;color:var(--coral-deep);
+    margin-bottom:26px;
+  }
+  .hero-logo{width:min(560px,82%);height:auto;display:block;margin:0 auto 22px;}
+  .hero-sub{font-family:var(--display);font-weight:500;font-size:20px;color:var(--ink-soft);letter-spacing:.02em;}
+  .hero-lede{
+    font-family:var(--serif);font-size:27px;line-height:1.45;
+    max-width:680px;margin:34px auto 0;color:var(--ink);
+  }
+  .hero-photo{
+    margin:46px 0 14px;border:1px solid var(--line);
+    padding:14px;background:var(--paper-2);
+  }
+  .hero-photo image-slot,.hero-photo img{width:100%;height:clamp(280px,52vw,540px);display:block;object-fit:cover;}
+  .caption{
+    font-family:var(--display);font-weight:400;font-size:12.5px;
+    letter-spacing:.04em;color:var(--ink-soft);text-align:right;
+    margin-top:10px;
+  }
+  .caption a{color:var(--coral-deep);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .18s;}
+  .caption a:hover{border-bottom-color:var(--coral-deep);}
+
+  /* ---- SECTION SCAFFOLD ---- */
+  section{padding:64px 0;border-top:1px solid var(--line);}
+  .sec-head{display:flex;align-items:baseline;gap:20px;margin-bottom:10px;}
+  .sec-num{
+    font-family:var(--display);font-weight:700;font-size:18px;color:var(--coral);
+    letter-spacing:.06em;flex:none;
+  }
+  .sec-title{font-family:var(--display);font-weight:600;font-size:clamp(34px,5vw,52px);line-height:1.02;letter-spacing:-.01em;}
+  .sec-intro{font-size:21px;line-height:1.6;max-width:680px;color:var(--ink);margin:18px 0 6px;}
+  .sec-intro + .sec-intro{margin-top:18px;}
+  #branch .sec-intro,#adk .sec-intro{max-width:none;}
+  .src{font-family:var(--display);font-size:12.5px;color:var(--ink-soft);letter-spacing:.04em;margin-top:18px;}
+  .src a{color:var(--coral-deep);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .18s;}
+  .src a:hover{border-bottom-color:var(--coral-deep);}
+
+  /* amenities chips */
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:30px;}
+  .chip{
+    font-family:var(--display);font-weight:500;font-size:13.5px;
+    border:1px solid var(--line);border-radius:999px;
+    padding:7px 15px;color:var(--ink);background:var(--paper-2);
+  }
+  .note-block{
+    margin-top:34px;border-left:3px solid var(--coral);
+    padding:4px 0 4px 22px;font-style:italic;font-size:21px;color:var(--ink);
+  }
+
+  /* big stat */
+  .stat{margin-top:34px;display:flex;align-items:baseline;gap:18px;}
+  .stat b{font-family:var(--display);font-weight:700;font-size:64px;color:var(--coral);line-height:1;}
+  .stat span{font-family:var(--display);font-weight:500;font-size:16px;color:var(--ink-soft);max-width:240px;}
+
+  /* ---- LISTS ---- */
+  .group{margin-top:42px;}
+  .group:first-of-type{margin-top:34px;}
+  .group-title{
+    font-family:var(--display);font-weight:600;font-size:15px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--coral-deep);
+    display:flex;align-items:center;gap:14px;margin-bottom:6px;
+  }
+  .group-title .meta{
+    font-weight:400;letter-spacing:.04em;text-transform:none;
+    color:var(--ink-soft);font-size:13px;
+  }
+  .group-title::after{content:"";flex:1;height:1px;background:var(--line);}
+  .entry{
+    padding:15px 0;border-bottom:1px solid var(--line);
+    display:grid;grid-template-columns:1fr auto;gap:6px 24px;align-items:baseline;
+  }
+  .entry .nm{font-family:var(--display);font-weight:600;font-size:21px;color:var(--ink);line-height:1.2;}
+  .entry .nm em{font-family:var(--serif);font-style:italic;font-weight:400;font-size:16px;color:var(--ink-soft);}
+  .entry .addr{font-size:16px;color:var(--ink-soft);line-height:1.4;}
+  .entry .addr a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .18s,color .18s;}
+  .entry .addr a:hover{color:var(--coral-deep);border-bottom-color:var(--coral-deep);}
+  .entry .meta-r{text-align:right;}
+  .entry a{
+    font-family:var(--display);font-weight:500;font-size:14px;
+    color:var(--coral-deep);text-decoration:none;white-space:nowrap;
+    border-bottom:1px solid transparent;transition:border-color .18s;
+  }
+  .entry a:hover{border-bottom-color:var(--coral-deep);}
+  .entry .phone{font-family:var(--display);font-weight:500;font-size:15px;color:var(--ink);}
+  @media(max-width:640px){
+    .entry{grid-template-columns:1fr;}
+    .entry .meta-r{text-align:left;}
+  }
+
+  .photo-band{margin:40px 0 0;border:1px solid var(--line);padding:14px;background:var(--paper-2);}
+  .photo-band image-slot,.photo-band img{width:100%;height:clamp(220px,34vw,360px);display:block;object-fit:cover;}
+
+  /* ---- FOOTER ---- */
+  footer{border-top:1px solid var(--line);background:var(--ink);color:var(--paper);padding:70px 0 60px;text-align:center;}
+  footer .f-logo{height:30px;width:auto;margin-bottom:18px;filter:none;}
+  footer .f-note{font-style:italic;font-size:22px;max-width:520px;margin:0 auto;color:var(--paper-2);}
+  footer .f-cred{font-family:var(--display);font-size:18px;letter-spacing:.05em;color:#9a8f80;margin-top:30px;}
+  .emergency{
+    display:inline-block;margin-top:22px;font-family:var(--display);font-weight:600;
+    font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--coral);
+    border:1px solid rgba(194,96,62,.4);border-radius:999px;padding:8px 18px;
+  }
+  /* ---- BACK TO TOP ---- */
+  .to-top{
+    position:fixed;right:26px;bottom:26px;z-index:60;
+    width:52px;height:52px;border-radius:50%;
+    background:var(--coral);color:var(--paper-2);border:0;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 24px -8px rgba(40,30,20,.45);
+    opacity:0;visibility:hidden;transform:translateY(14px);
+    transition:opacity .25s,transform .25s,visibility .25s,background .18s;
+  }
+  .to-top.show{opacity:1;visibility:visible;transform:translateY(0);}
+  .to-top:hover{background:var(--coral-deep);}
+  .to-top svg{width:22px;height:22px;display:block;}
+  @media(max-width:760px){.to-top{right:18px;bottom:18px;width:48px;height:48px;}}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#1E3A2B"/>
+    <path d="M50 24 L66 52 H34 Z M50 40 L72 76 H28 Z" fill="#FF5875"/>
+    <rect x="47" y="70" width="6" height="14" fill="#FF5875"/>
+  </svg>
+</template>
+<nav id="nav">
+  <div class="nav-in">
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#branch">The Branch</a></li>
+      <li><a href="#activities">Activities</a></li>
+      <li><a href="#restaurants">Restaurants</a></li>
+      <li><a href="#attractions">Attractions</a></li>
+      <li><a href="#shopping">Shopping &amp; Services</a></li>
+      <li><a href="#adk">The Adirondacks</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <h1 class="hero-title">Local Guide</h1>
+    <p class="hero-note" id="hero-note"></p>
+  </header>
+</div>
+<div class="wrap">
+  <div class="hero-photo">
+    <img id="a-hero" src="assets/photos/hero.webp" alt="The Branch" />
+  </div>
+  <div class="caption" id="hero-credit"></div>
+</div>
+
+<main class="wrap" id="main"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-cred" id="foot-cred"></div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script src="assets/guide-data.js"></script>
+<script>
+(function(){
+  const G = window.GUIDE;
+  document.getElementById('hero-credit').innerHTML = G.intro.credit;
+  document.getElementById('hero-note').innerHTML = 'Use this guide to plan your outings\u2026<br>then write about them in our journal!';
+  document.getElementById('foot-cred').textContent = "© The Branch Adirondack Lodge · Elizabethtown, NY";
+
+  function mapsLink(it){ var q = (it.name && it.addr) ? it.name+', '+it.addr : (it.addr||it.name); return 'https://www.google.com/maps?q='+encodeURIComponent(q); }
+  function entry(it){
+    let nm = it.name;
+    if(it.note) nm += ' <em>('+it.note+')</em>';
+    let right = '';
+    if(it.link){ var disp = it.link.length > 30 ? it.link.split('/')[0] : it.link; right = '<a href="https://'+it.link+'" target="_blank" rel="noopener noreferrer">'+disp+' ↗</a>'; }
+    else if(it.phone) right = '<span class="phone">'+it.phone+'</span>';
+    let addr = it.addr ? '<div class="addr"><a href="'+(it.map||mapsLink(it))+'" target="_blank" rel="noopener noreferrer">'+it.addr+'</a></div>' : '';
+    return '<div class="entry"><div><div class="nm">'+nm+'</div>'+addr+'</div>'+
+           '<div class="meta-r">'+right+'</div></div>';
+  }
+  function flatList(arr){ return arr.map(entry).join(''); }
+  function groupedList(groups){
+    return groups.map(g=>{
+      const meta = g.meta ? '<span class="meta">'+g.meta+'</span>' : '';
+      return '<div class="group"><div class="group-title">'+g.group+meta+'</div>'+
+             g.items.map(entry).join('')+'</div>';
+    }).join('');
+  }
+  function section(id,num,title,intro,body){
+    return '<section id="'+id+'"><div class="sec-head"><span class="sec-num">'+num+'</span>'+
+      '<h2 class="sec-title">'+title+'</h2></div>'+(intro||'')+body+'</section>';
+  }
+
+  let html = '';
+
+  // 01 The Branch
+  html += section('branch','01','The Branch <span style="font-weight:500;">Adirondack Lodge</span>',
+    '<p class="sec-intro">'+G.intro.branchCopy+'</p>',
+    '');
+
+  // 02 Activities
+  html += section('activities','02','Activities',
+    '',
+    groupedList(G.activities));
+
+  // 03 Restaurants
+  html += section('restaurants','03','Our Favorite Restaurants',
+    '',
+    '<div class="group">'+flatList(G.restaurants)+'</div>'+
+    '<div class="photo-band"><img id="a-food" src="assets/photos/food.webp" alt="A favorite local meal" /></div>');
+
+  // 04 Attractions
+  html += section('attractions','04','Attractions',
+    '',
+    groupedList(G.attractions));
+
+  // 05 Shopping & Services
+  html += section('shopping','05','Shopping &amp; Services',
+    '',
+    '<div class="group"><div class="group-title">Shopping</div>'+flatList(G.shopping)+'</div>'+
+    '<div class="group"><div class="group-title">Services</div>'+flatList(G.services)+'</div>');
+
+  // 06 The Adirondacks
+  html += section('adk','06','The Adirondacks',
+    '<p class="sec-intro">'+G.adirondacks.p1+'</p><p class="sec-intro">'+G.adirondacks.p2+'</p><p class="sec-intro">'+G.adirondacks.p3+'</p>',
+    '<div class="src">'+G.adirondacks.credit+'</div>'+
+    '<div class="photo-band"><img id="a-adk" src="assets/photos/adirondacks.webp" alt="Adirondack landscape" /></div>');
+
+  document.getElementById('main').innerHTML = html;
+
+  // mobile nav toggle
+  var nav = document.getElementById('nav');
+  var toggle = document.getElementById('navToggle');
+  toggle.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.getElementById('navLinks').addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){ nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
+  });
+
+  // back to top
+  var toTop = document.getElementById('toTop');
+  function onScroll(){
+    if(window.pageYOffset > 400) toTop.classList.add('show');
+    else toTop.classList.remove('show');
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  toTop.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+})();
+</script>
+</body>
+</html>
