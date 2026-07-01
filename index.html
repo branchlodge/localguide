@@ -169,6 +169,7 @@
   }
   .entry a:hover{border-bottom-color:var(--coral-deep);}
   .entry .phone{font-family:var(--display);font-weight:500;font-size:15px;color:var(--ink);}
+  .entry .phone-note{display:block;font-family:var(--display);font-weight:500;font-size:12px;font-style:italic;color:var(--coral-deep);margin-top:2px;}
   @media(max-width:640px){
     .entry{grid-template-columns:1fr;}
     .entry .meta-r{text-align:left;}
@@ -266,7 +267,7 @@
     if(it.note) nm += ' <em>('+it.note+')</em>';
     let right = '';
     if(it.link){ var disp = it.link.length > 30 ? it.link.split('/')[0] : it.link; right = '<a href="https://'+it.link+'" target="_blank" rel="noopener noreferrer">'+disp+' ↗</a>'; }
-    else if(it.phone) right = '<span class="phone">'+it.phone+'</span>';
+    else if(it.phone) right = '<span class="phone">'+it.phone+'</span>'+(it.phoneNote?'<span class="phone-note">'+it.phoneNote+'</span>':'');
     let addr = it.addr ? '<div class="addr"><a href="'+(it.map||mapsLink(it))+'" target="_blank" rel="noopener noreferrer">'+it.addr+'</a></div>' : '';
     return '<div class="entry"><div><div class="nm">'+nm+'</div>'+addr+'</div>'+
            '<div class="meta-r">'+right+'</div></div>';

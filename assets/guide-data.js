@@ -68,7 +68,7 @@ window.GUIDE = {
       { name: "Lake Placid Olympic Sites", link: "lakeplacidlegacysites.com" },
       { name: "The Mill", note: "music venue & exhibition space", addr: "6679 Main St, Westport, NY 12993", link: "themilladk.com" },
       { name: "The Depot Theatre", note: "professional theatre, seasonal", addr: "6705 Main St, Westport, NY", link: "depottheatre.org" },
-      { name: "Seagle Festival", note: "opera and musical theater, seasonal", link: "seaglefestival.org" },
+      { name: "Seagle Festival", note: "opera and musical theater, seasonal", addr: "999 Charley Hill Rd, Schroon Lake, NY 12870", map: "https://maps.app.goo.gl/h1vjiQW8DNqEQ1LRA", link: "seaglefestival.org" },
       { name: "Fort Ticonderoga", note: "seasonal", addr: "102 Fort Ti Rd, Ticonderoga, NY 12883", link: "fortticonderoga.org" },
       { name: "Star Trek Original Series Set Tour", note: "no, really!", addr: "112 Montcalm St, Ticonderoga, NY 12883", link: "startrektour.com" },
       { name: "The Wild Center", addr: "45 Museum Dr, Tupper Lake, NY 12986", link: "wildcenter.org" },
@@ -94,7 +94,7 @@ window.GUIDE = {
 
   services: [
     { name: "Elizabethtown Community Hospital", note: "24/7 Emergency Dept.", addr: "75 Park St, Elizabethtown, NY 12932", phone: "(518) 873-6377" },
-    { name: "Essex County Emergency Services", note: "fire & safety", addr: "702 Stowersville Rd, Lewis, NY 12950", map: "https://maps.app.goo.gl/Et5hxTCbYCDCK6dB7", phone: "(518) 873-3900" },
+    { name: "Essex County Emergency Services", note: "fire & safety", addr: "702 Stowersville Rd, Lewis, NY 12950", map: "https://maps.app.goo.gl/Et5hxTCbYCDCK6dB7", phone: "(518) 873-2116", phoneNote: "Dial 911 in an emergency" },
     { name: "TrailNorth Federal Credit Union", addr: "7519 Court St, Elizabethtown, NY 12932", phone: "(518) 585-6725" },
     { name: "McGee's Towing & Recovery", phone: "(518) 962-4783" },
   ],
